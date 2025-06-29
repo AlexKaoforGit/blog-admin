@@ -195,6 +195,8 @@
   font-weight: 500;
   color: #333;
   margin-bottom: 8px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .mobile-tags {
@@ -378,11 +380,28 @@
   
   .article-title {
     margin-bottom: 6px;
+    max-width: calc(100vw - 200px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .mobile-tags .tags {
+    max-width: calc(100vw - 200px);
+    overflow: hidden;
+  }
+  
+  .mobile-tags .tag {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .actions {
     flex-direction: column;
     gap: 4px;
+    min-width: 80px;
   }
   
   .icon-button {
@@ -454,6 +473,25 @@
   .article-table th,
   .article-table td {
     padding: 6px 4px;
+  }
+  
+  .article-title {
+    max-width: calc(100vw - 250px);
+    font-size: 12px;
+  }
+  
+  .mobile-tags .tags {
+    max-width: calc(100vw - 250px);
+  }
+  
+  .mobile-tags .tag {
+    max-width: 60px;
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+  
+  .actions {
+    min-width: 60px;
   }
   
   .tag {
