@@ -1,0 +1,107 @@
+<div class="article-form-container">
+  <header class="toolbar">
+    <button class="back-button" (click)="onCancel()">← 返回</button>
+    <h1>{{ isEditMode ? '編輯文章' : '新增文章' }}</h1>
+  </header>
+
+  <div class="content">
+    <div class="card">
+      <div class="card-header">
+        <h2>{{ isEditMode ? '編輯文章' : '新增文章' }}</h2>
+        <p>請填寫文章資訊</p>
+      </div>
+
+      <div class="card-content">
+        <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="article-form">
+          <div class="form-group">
+            <label for="title">文章標題 *</label>
+            <input 
+              id="title"
+              type="text" 
+              formControlName="title" 
+              placeholder="請輸入文章標題"
+              [class.error]="articleForm.get('title')?.invalid && articleForm.get('title')?.touched">
+            <div *ngIf="articleForm.get('title')?.invalid && articleForm.get('title')?.touched" class="error-message">
+              {{ getErrorMessage('title') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="content">文章內容 *</label>
+            <textarea 
+              id="content"
+              formControlName="content" 
+              rows="10" 
+              placeholder="請輸入文章內容"
+              [class.error]="articleForm.get('content')?.invalid && articleForm.get('content')?.touched"></textarea>
+            <div *ngIf="articleForm.get('content')?.invalid && articleForm.get('content')?.touched" class="error-message">
+              {{ getErrorMessage('content') }}
+            </div>
+          </div>
+
+          <div class="tags-section">
+            <h3>標籤</h3>
+            <div class="available-tags">
+              <button 
+                *ngFor="let tag of availableTags" 
+                type="button"
+                class="tag-button"
+                (click)="addTag(tag)"
+                [disabled]="tagsArray.value.includes(tag)">
+                {{ tag }}
+              </button>
+            </div>
+            
+            <div class="custom-tag-input">
+              <input 
+                type="text" 
+                (keydown.enter)="addCustomTag($event)" 
+                placeholder="輸入標籤後按 Enter">
+            </div>
+
+            <div class="selected-tags" *ngIf="tagsArray.length > 0">
+              <span 
+                *ngFor="let tag of tagsArray.controls; let i = index" 
+                class="selected-tag">
+                {{ tag.value }}
+                <button type="button" class="remove-tag" (click)="removeTag(i)">×</button>
+              </span>
+            </div>
+          </div>
+
+          <div class="status-section">
+            <h3>發佈狀態</h3>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" formControlName="status" value="draft">
+                <span class="radio-custom"></span>
+                草稿
+              </label>
+              <label class="radio-option">
+                <input type="radio" formControlName="status" value="published">
+                <span class="radio-custom"></span>
+                已發布
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button 
+              type="button" 
+              class="secondary-button"
+              (click)="onCancel()">
+              取消
+            </button>
+            <button 
+              type="submit"
+              class="primary-button"
+              [disabled]="articleForm.invalid || loading">
+              <span *ngIf="loading" class="loading-spinner"></span>
+              {{ loading ? '儲存中...' : (isEditMode ? '更新' : '建立') }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> 

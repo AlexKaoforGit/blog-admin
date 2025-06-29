@@ -1,0 +1,122 @@
+<div class="article-list-container">
+  <header class="toolbar">
+    <h1>文章管理系統</h1>
+    <button class="logout-button" (click)="onLogout()">登出</button>
+  </header>
+
+  <div class="content">
+    <div class="card">
+      <div class="card-header">
+        <h2>文章列表</h2>
+        <p>管理您的文章內容</p>
+      </div>
+
+      <div class="card-content">
+        <div class="toolbar">
+          <div class="search-field">
+            <input 
+              type="text" 
+              [formControl]="searchControl" 
+              placeholder="搜尋文章標題...">
+          </div>
+
+          <button class="primary-button" (click)="onNewArticle()">
+            新增文章
+          </button>
+        </div>
+
+        <div *ngIf="loading" class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>載入中...</p>
+        </div>
+
+        <div *ngIf="!loading && articles.length === 0" class="empty-state">
+          <h3>尚無文章</h3>
+          <p>點擊「新增文章」開始建立您的第一篇文章</p>
+        </div>
+
+        <div *ngIf="!loading && articles.length > 0" class="table-container">
+          <table class="article-table">
+            <thead>
+              <tr>
+                <th>標題</th>
+                <th class="desktop-only">作者</th>
+                <th class="desktop-only">標籤</th>
+                <th>狀態</th>
+                <th class="desktop-only">建立時間</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let article of articles">
+                <td>
+                  <div class="article-title">{{ article.title }}</div>
+                  <div class="mobile-tags">
+                    <div class="tags">
+                      <span *ngFor="let tag of article.tags" class="tag">{{ tag }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="desktop-only">{{ article.author }}</td>
+                <td class="desktop-only">
+                  <div class="tags">
+                    <span *ngFor="let tag of article.tags" class="tag">{{ tag }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span [class]="getStatusClass(article.status)" class="status-badge">
+                    {{ getStatusText(article.status) }}
+                  </span>
+                </td>
+                <td class="desktop-only">{{ article.createdAt | date:'yyyy/MM/dd HH:mm' }}</td>
+                <td>
+                  <div class="actions">
+                    <button class="icon-button edit" (click)="onEdit(article)" title="編輯">
+                      編輯
+                    </button>
+                    <button class="icon-button delete" (click)="onDelete(article)" title="刪除">
+                      刪除
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pagination">
+            <div class="pagination-info">
+              顯示 {{ currentPage * pageSize + 1 }} - {{ Math.min((currentPage + 1) * pageSize, totalItems) }} 筆，共 {{ totalItems }} 筆
+            </div>
+            
+            <div class="pagination-controls">
+              <select (change)="onPageSizeChange($event)">
+                <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }} 筆/頁</option>
+              </select>
+              
+              <div class="page-buttons">
+                <button 
+                  [disabled]="currentPage === 0"
+                  (click)="onPageChange(currentPage - 1)">
+                  上一頁
+                </button>
+                
+                <button 
+                  *ngFor="let page of pageNumbers"
+                  [class.active]="page === currentPage"
+                  (click)="onPageChange(page)">
+                  {{ page + 1 }}
+                </button>
+                
+                <button 
+                  [disabled]="currentPage === totalPages - 1"
+                  (click)="onPageChange(currentPage + 1)">
+                  下一頁
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

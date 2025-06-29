@@ -1,0 +1,54 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>文章管理系統</h1>
+      <p>請登入以繼續</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email"
+          type="email" 
+          formControlName="email" 
+          placeholder="請輸入您的 Email"
+          [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+          {{ getErrorMessage('email') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">密碼</label>
+        <input 
+          id="password"
+          type="password" 
+          formControlName="password" 
+          placeholder="請輸入您的密碼"
+          [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+          {{ getErrorMessage('password') }}
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message global-error">
+        {{ errorMessage }}
+      </div>
+
+      <button 
+        type="submit" 
+        class="login-button"
+        [disabled]="loginForm.invalid || loading">
+        <span *ngIf="loading" class="loading-spinner"></span>
+        {{ loading ? '登入中...' : '登入' }}
+      </button>
+    </form>
+
+    <div class="demo-credentials">
+      <p><strong>測試帳號：</strong></p>
+      <p>Email: admin&#64;example.com</p>
+      <p>密碼: password</p>
+    </div>
+  </div>
+</div> 
