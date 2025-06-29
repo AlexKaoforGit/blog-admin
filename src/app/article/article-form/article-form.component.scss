@@ -97,6 +97,9 @@
   font-size: 16px;
   transition: border-color 0.3s ease;
   font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .form-group input:focus,
