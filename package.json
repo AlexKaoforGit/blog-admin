@@ -11,7 +11,10 @@
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "deploy": "ng build --configuration production --base-href=/blog-admin/ && npx angular-cli-ghpages --dir=dist/blog-admin/browser",
     "install:ci": "npm ci --legacy-peer-deps",
-    "install:dev": "npm install --legacy-peer-deps"
+    "install:dev": "npm install --legacy-peer-deps",
+    "setup:ci-env": "cp src/environments/environment.ci.ts src/environments/environment.ts && cp src/environments/environment.ci.ts src/environments/environment.prod.ts",
+    "pretest:ci": "npm run setup:ci-env",
+    "prebuild:prod": "npm run setup:ci-env"
   },
   "prettier": {
     "overrides": [

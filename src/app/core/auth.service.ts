@@ -19,13 +19,13 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth) {
     this.loadUserFromStorage();
-    
+
     // 在 CI 環境中跳過 Firebase 初始化
     if ((environment as any).isCI) {
       console.log('CI 環境：跳過 Firebase 初始化');
       return;
     }
-    
+
     this.afAuth.authState.subscribe((firebaseUser: firebase.User | null) => {
       console.log('Firebase authState 變化:', firebaseUser?.email || 'null');
       if (firebaseUser) {
@@ -60,7 +60,7 @@ export class AuthService {
         observer.complete();
       });
     }
-    
+
     return new Observable((observer) => {
       this.afAuth
         .signInWithEmailAndPassword(email, password)
@@ -94,7 +94,7 @@ export class AuthService {
         observer.complete();
       });
     }
-    
+
     return new Observable((observer) => {
       this.afAuth
         .createUserWithEmailAndPassword(email, password)

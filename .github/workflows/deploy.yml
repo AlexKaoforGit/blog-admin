@@ -32,11 +32,6 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Setup environment files
-        run: |
-          cp src/environments/environment.ci.ts src/environments/environment.ts
-          cp src/environments/environment.ci.ts src/environments/environment.prod.ts
-
       - name: Run tests
         run: npm run test:ci
 
