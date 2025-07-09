@@ -30,6 +30,11 @@
                 "glob": "404.html",
                 "input": "src",
                 "output": "/"
+              },
+              {
+                "glob": ".nojekyll",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": ["src/styles.scss"],
