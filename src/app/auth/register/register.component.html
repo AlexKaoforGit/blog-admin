@@ -67,17 +67,27 @@
 
         <div class="form-group">
           <label for="password">密碼</label>
-          <input
-            type="password"
-            id="password"
-            formControlName="password"
-            class="form-control"
-            [class.error]="
-              registerForm.get('password')?.invalid &&
-              registerForm.get('password')?.touched
-            "
-            placeholder="請輸入密碼（至少6個字元）"
-          />
+          <div class="password-input-container">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              formControlName="password"
+              class="form-control"
+              [class.error]="
+                registerForm.get('password')?.invalid &&
+                registerForm.get('password')?.touched
+              "
+              placeholder="請輸入密碼（至少6個字元）"
+            />
+            <button
+              type="button"
+              class="password-toggle-btn"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword ? '隱藏密碼' : '顯示密碼'"
+            >
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
           <div
             class="error-message"
             *ngIf="

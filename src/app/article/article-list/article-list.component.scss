@@ -24,10 +24,8 @@
   margin: 0;
   font-size: 24px;
   font-weight: 700;
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(248, 250, 252, 0.3);
 }
 
 .logout-button {
@@ -131,21 +129,22 @@
 }
 
 .primary-button {
-  background: var(--gradient-accent);
-  color: white;
-  border: none;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   padding: 12px 24px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
 }
 
 .primary-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  background: var(--accent-bg);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 15px rgba(96, 165, 250, 0.15);
 }
 
 .loading-container {
@@ -345,23 +344,23 @@
 .icon-button.edit {
   background: var(--gradient-accent);
   color: white;
-  box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
 }
 
 .icon-button.edit:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
 }
 
 .icon-button.delete {
-  background: linear-gradient(135deg, #ff006e, #ff4757);
+  background: linear-gradient(135deg, #f87171, #dc2626);
   color: white;
-  box-shadow: 0 2px 8px rgba(255, 0, 110, 0.3);
+  box-shadow: 0 2px 8px rgba(248, 113, 113, 0.15);
 }
 
 .icon-button.delete:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 0, 110, 0.4);
+  box-shadow: 0 4px 12px rgba(248, 113, 113, 0.25);
 }
 
 .pagination {
@@ -400,11 +399,12 @@
 .page-buttons button {
   padding: 8px 12px;
   border: 1px solid var(--border-color);
-  background: var(--card-bg);
+  background: transparent;
   color: var(--text-primary);
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .page-buttons button:hover:not(:disabled) {
@@ -414,10 +414,9 @@
 }
 
 .page-buttons button.active {
-  background: var(--gradient-accent);
-  color: white;
+  background: var(--accent-bg);
+  color: var(--neon-blue);
   border-color: var(--neon-blue);
-  box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
 }
 
 .page-buttons button:disabled {

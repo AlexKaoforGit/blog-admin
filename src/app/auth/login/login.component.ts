@@ -22,6 +22,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   loading = false;
   errorMessage = '';
+  showPassword = false; // 新增：控制密碼顯示/隱藏
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +36,11 @@ export class LoginComponent {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+  }
+
+  // 新增：切換密碼顯示/隱藏的方法
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   onSubmit(): void {

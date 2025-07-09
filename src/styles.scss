@@ -3,41 +3,41 @@
 
 /* 現代科技感配色變數 */
 :root {
-  /* 主色調 - 深藍科技感 */
-  --primary-bg: #0a0e27;
-  --secondary-bg: #1a1d3a;
-  --card-bg: #1e223d;
-  --accent-bg: #252a4a;
+  /* 主色調 - 調亮的深藍科技感 */
+  --primary-bg: #1a1f3a;
+  --secondary-bg: #252a4a;
+  --card-bg: #2d3654;
+  --accent-bg: #364063;
 
   /* 霓虹色彩 */
-  --neon-blue: #00d4ff;
-  --neon-purple: #9d4edd;
-  --neon-green: #39ff14;
-  --neon-pink: #ff006e;
-  --neon-orange: #ff7c00;
+  --neon-blue: #60a5fa;
+  --neon-purple: #8b5cf6;
+  --neon-green: #34d399;
+  --neon-pink: #f87171;
+  --neon-orange: #fb923c;
 
   /* 漸層色 */
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-primary: linear-gradient(135deg, #64748b 0%, #475569 100%);
+  --gradient-secondary: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   --gradient-dark: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
 
   /* 文字色彩 */
-  --text-primary: #ffffff;
-  --text-secondary: #b8c2cc;
-  --text-muted: #6b7280;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
   --text-accent: var(--neon-blue);
 
   /* 邊框和陰影 */
-  --border-color: #2d3748;
-  --shadow-primary: 0 10px 25px rgba(0, 0, 0, 0.3);
-  --shadow-accent: 0 0 20px rgba(0, 212, 255, 0.3);
-  --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.4);
+  --border-color: #3a4c6b;
+  --shadow-primary: 0 10px 25px rgba(0, 0, 0, 0.25);
+  --shadow-accent: 0 0 20px rgba(59, 130, 246, 0.2);
+  --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.35);
 
   /* 狀態色彩 */
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --error-color: #ef4444;
+  --success-color: #34d399;
+  --warning-color: #fbbf24;
+  --error-color: #f87171;
   --info-color: var(--neon-blue);
 }
 
@@ -185,12 +185,12 @@ table {
 .btn-primary {
   background: var(--gradient-accent);
   color: white;
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
 }
 
 .btn-secondary {
@@ -205,14 +205,14 @@ table {
 }
 
 .btn-danger {
-  background: linear-gradient(135deg, #ff006e, #ff4757);
+  background: linear-gradient(135deg, #f87171, #dc2626);
   color: white;
-  box-shadow: 0 4px 15px rgba(255, 0, 110, 0.3);
+  box-shadow: 0 4px 15px rgba(248, 113, 113, 0.15);
 }
 
 .btn-danger:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 0, 110, 0.4);
+  box-shadow: 0 6px 20px rgba(248, 113, 113, 0.25);
 }
 
 /* 卡片樣式 */
@@ -382,6 +382,73 @@ table {
 
 .swal2-icon.swal2-info {
   color: var(--info-color) !important;
+}
+
+/* SweetAlert Toast 自訂樣式 */
+.swal2-toast {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+.swal2-toast .swal2-title {
+  color: var(--text-primary) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+
+.swal2-toast .swal2-content {
+  color: var(--text-secondary) !important;
+  font-size: 0.9rem !important;
+}
+
+.swal2-toast .swal2-icon.swal2-success {
+  color: var(--success-color) !important;
+  border-color: var(--success-color) !important;
+}
+
+.swal2-toast .swal2-icon.swal2-success [class^="swal2-success-line"] {
+  background-color: var(--success-color) !important;
+}
+
+.swal2-toast .swal2-icon.swal2-success .swal2-success-ring {
+  border-color: var(--success-color) !important;
+}
+
+.swal2-toast .swal2-timer-progress-bar {
+  background: var(--success-color) !important;
+}
+
+/* Toast 動畫優化 */
+.swal2-toast.swal2-show {
+  animation: swal2-toast-show 0.3s ease-out !important;
+}
+
+.swal2-toast.swal2-hide {
+  animation: swal2-toast-hide 0.2s ease-in !important;
+}
+
+@keyframes swal2-toast-show {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes swal2-toast-hide {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
 /* SweetAlert2 響應式設計 */

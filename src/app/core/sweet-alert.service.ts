@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SweetAlertService {
-
   constructor() {}
 
   // 成功訊息
@@ -14,8 +13,11 @@ export class SweetAlertService {
       icon: 'success',
       title: title,
       text: message,
-      confirmButtonText: '確定',
-      confirmButtonColor: '#3085d6'
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+      toast: true,
+      position: 'top-end',
     });
   }
 
@@ -26,7 +28,7 @@ export class SweetAlertService {
       title: title,
       text: message,
       confirmButtonText: '確定',
-      confirmButtonColor: '#d33'
+      confirmButtonColor: '#d33',
     });
   }
 
@@ -37,7 +39,7 @@ export class SweetAlertService {
       title: title,
       text: message,
       confirmButtonText: '確定',
-      confirmButtonColor: '#f39c12'
+      confirmButtonColor: '#f39c12',
     });
   }
 
@@ -48,12 +50,17 @@ export class SweetAlertService {
       title: title,
       text: message,
       confirmButtonText: '確定',
-      confirmButtonColor: '#17a2b8'
+      confirmButtonColor: '#17a2b8',
     });
   }
 
   // 確認對話框
-  confirm(title: string, message?: string, confirmText = '確定', cancelText = '取消'): Promise<any> {
+  confirm(
+    title: string,
+    message?: string,
+    confirmText = '確定',
+    cancelText = '取消'
+  ): Promise<any> {
     return Swal.fire({
       icon: 'question',
       title: title,
@@ -63,7 +70,7 @@ export class SweetAlertService {
       cancelButtonText: cancelText,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#6c757d',
-      reverseButtons: true
+      reverseButtons: true,
     });
   }
 
@@ -78,7 +85,7 @@ export class SweetAlertService {
       cancelButtonText: '取消',
       confirmButtonColor: '#f44336',
       cancelButtonColor: '#6c757d',
-      reverseButtons: true
+      reverseButtons: true,
     });
   }
 
@@ -88,8 +95,11 @@ export class SweetAlertService {
       icon: 'success',
       title: '刪除成功',
       text: itemName ? `「${itemName}」已成功刪除` : '項目已成功刪除',
-      confirmButtonText: '確定',
-      confirmButtonColor: '#3085d6'
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+      toast: true,
+      position: 'top-end',
     });
   }
 
@@ -100,7 +110,7 @@ export class SweetAlertService {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
   }
 
@@ -113,4 +123,4 @@ export class SweetAlertService {
   custom(options: any): Promise<any> {
     return Swal.fire(options);
   }
-} 
+}

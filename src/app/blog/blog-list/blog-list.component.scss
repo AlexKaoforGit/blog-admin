@@ -1,7 +1,7 @@
 // 前台部落格樣式 - 現代科技感設計
 .blog-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 50%, #3a4570 100%);
   color: #e0e7ff;
   font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont,
     sans-serif;
@@ -72,7 +72,7 @@
 // 主要內容
 .blog-main {
   flex: 1;
-  padding: 2rem 0;
+  padding: 3rem 0;
 
   .container {
     max-width: 1200px;
@@ -233,6 +233,7 @@
 
   .article-header {
     margin-bottom: 1rem;
+    text-align: left; // 確保整個 header 靠左對齊
 
     .article-title {
       font-size: 1.25rem;
@@ -254,7 +255,16 @@
       font-size: 0.875rem;
       color: #94a3b8;
 
-      .article-date {
+      .meta-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: flex-start; // 確保靠左對齊
+      }
+
+      .article-date,
+      .article-author {
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -264,10 +274,17 @@
         }
       }
 
+      .article-author {
+        i {
+          color: #8b5cf6;
+        }
+      }
+
       .article-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
+        justify-content: flex-start; // 確保標籤也靠左對齊
 
         .tag {
           background: rgba(59, 130, 246, 0.2);
@@ -333,57 +350,81 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
   margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(59, 130, 246, 0.2);
 
-  .page-btn {
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    color: #e0e7ff;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  .pagination-controls {
     display: flex;
     align-items: center;
+    gap: 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .page-btn,
+  .page-number {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    min-height: 40px; // 確保所有按鈕統一高度
+
+    &:not(:last-child) {
+      border-right: none;
+    }
+
+    &:first-child {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
 
     &:hover:not(.disabled) {
-      background: rgba(59, 130, 246, 0.2);
-      border-color: #3b82f6;
+      color: #3b82f6;
+      border: 1px solid #3b82f6;
+      z-index: 1;
     }
 
     &.disabled {
       opacity: 0.5;
       cursor: not-allowed;
+      background: var(--card-bg);
+    }
+
+    i {
+      font-size: 0.8rem;
     }
   }
 
-  .page-numbers {
-    display: flex;
-    gap: 0.5rem;
+  .page-number {
+    min-width: 40px;
+    min-height: 40px; // 確保與其他按鈕高度一致
+    text-align: center;
+    justify-content: center;
 
-    .page-number {
-      background: rgba(30, 41, 59, 0.6);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      color: #e0e7ff;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 45px;
-      font-weight: 500;
+    &:hover {
+      color: #3b82f6;
+      border: 1px solid #3b82f6;
+      z-index: 1;
+    }
 
-      &:hover {
-        background: rgba(59, 130, 246, 0.2);
-        border-color: #3b82f6;
-      }
-
-      &.active {
-        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-        border-color: #3b82f6;
-        color: white;
-      }
+    &.active {
+      color: #2563eb;
+      border: 1px solid #2563eb;
+      z-index: 1;
     }
   }
 }
@@ -420,12 +461,23 @@
 
   .blog-title {
     flex-shrink: 0;
+    font-size: 1.8rem;
   }
 
   .blog-nav {
     display: flex;
     justify-content: flex-end;
     flex-shrink: 0;
+
+    .admin-btn {
+      padding: 0.65rem 1.25rem;
+      font-size: 0.85rem;
+      border-radius: 0.625rem;
+
+      i {
+        font-size: 0.8rem;
+      }
+    }
   }
 
   .articles-grid {
@@ -433,12 +485,32 @@
     gap: 1.5rem;
   }
 
-  .pagination {
+  .article-meta .meta-row {
     flex-direction: column;
-    gap: 1rem;
+    align-items: flex-start !important; // 強制靠左對齊
+    justify-content: flex-start !important;
+    gap: 0.5rem;
+    text-align: left; // 確保文字靠左
+  }
 
-    .page-numbers {
-      justify-content: center;
+  .pagination {
+    justify-content: center;
+
+    .pagination-controls {
+      flex-wrap: wrap;
+    }
+
+    .page-btn,
+    .page-number {
+      border-radius: 0;
+
+      &:first-child {
+        border-radius: 8px 0 0 8px;
+      }
+
+      &:last-child {
+        border-radius: 0 8px 8px 0;
+      }
     }
   }
 
@@ -481,9 +553,37 @@
     padding: 1rem;
   }
 
-  .page-numbers {
-    flex-wrap: wrap;
+  .article-meta .meta-row {
+    flex-direction: column;
+    align-items: flex-start !important; // 強制靠左對齊
+    justify-content: flex-start !important;
+    gap: 0.5rem;
+    text-align: left; // 確保文字靠左
+  }
+
+  .pagination {
     justify-content: center;
+
+    .pagination-controls {
+      flex-wrap: wrap;
+    }
+
+    .page-btn,
+    .page-number {
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      min-width: 36px;
+      min-height: 36px; // 480px 斷點的統一高度
+      border-radius: 0;
+
+      &:first-child {
+        border-radius: 8px 0 0 8px;
+      }
+
+      &:last-child {
+        border-radius: 0 8px 8px 0;
+      }
+    }
   }
 }
 
@@ -505,6 +605,50 @@
     // 只顯示圖標，隱藏文字
     &::after {
       content: "";
+    }
+  }
+
+  .article-meta .meta-row {
+    flex-direction: column;
+    align-items: flex-start !important; // 強制靠左對齊
+    justify-content: flex-start !important;
+    gap: 0.3rem;
+    text-align: left; // 確保文字靠左
+
+    .article-date,
+    .article-author {
+      font-size: 0.8rem;
+    }
+  }
+
+  .pagination {
+    justify-content: center;
+
+    .pagination-controls {
+      flex-wrap: wrap;
+    }
+
+    .page-btn,
+    .page-number {
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      min-width: 32px;
+      min-height: 32px; // 360px 斷點的統一高度
+      border-radius: 0;
+
+      &:first-child {
+        border-radius: 6px 0 0 6px;
+      }
+
+      &:last-child {
+        border-radius: 0 6px 6px 0;
+      }
+    }
+
+    .page-btn {
+      span {
+        display: none; // 隱藏文字，只顯示圖標
+      }
     }
   }
 }

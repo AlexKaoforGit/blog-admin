@@ -22,6 +22,8 @@ export class RegisterComponent {
   registerForm: FormGroup;
   loading = false;
   errorMessage = '';
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -84,6 +86,14 @@ export class RegisterComponent {
         },
       });
     }
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   getErrorMessage(fieldName: string): string {
