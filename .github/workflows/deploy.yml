@@ -59,26 +59,6 @@ jobs:
             version: '1.0.0'
           };
           EOF
-          cat > src/environments/environment.ts << 'EOF'
-          export const environment = {
-            production: true,
-            firebase: {
-              apiKey: '${{ secrets.FIREBASE_API_KEY }}',
-              authDomain: '${{ secrets.FIREBASE_AUTH_DOMAIN }}',
-              projectId: '${{ secrets.FIREBASE_PROJECT_ID }}',
-              storageBucket: '${{ secrets.FIREBASE_STORAGE_BUCKET }}',
-              messagingSenderId: '${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}',
-              appId: '${{ secrets.FIREBASE_APP_ID }}',
-              measurementId: '${{ secrets.FIREBASE_MEASUREMENT_ID }}'
-            },
-            apiUrl: 'https://your-api-domain.com/api',
-            enableAnalytics: true,
-            logLevel: 'error',
-            isCI: false,
-            appName: 'Yo Blog - Production',
-            version: '1.0.0'
-          };
-          EOF
 
       - name: Build
         run: npm run build:prod -- --base-href=/blog-admin/
