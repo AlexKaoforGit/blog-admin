@@ -1,0 +1,84 @@
+<div class="blog-detail-container">
+  <!-- 頂部導航 -->
+  <header class="blog-header">
+    <div class="container">
+      <h1 class="blog-title" (click)="goToHome()">Yo Blog</h1>
+      <nav class="blog-nav">
+        <button class="admin-btn" (click)="goToAdmin()">
+          <i class="fas fa-cog"></i>
+          <span>管理後台</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主要內容 -->
+  <main class="blog-main">
+    <div class="container">
+      <!-- 載入中 -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>載入中...</p>
+      </div>
+
+      <!-- 文章未找到 -->
+      <div *ngIf="notFound && !loading" class="not-found">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h2>文章未找到</h2>
+        <p>您要查看的文章不存在或尚未發布。</p>
+        <button class="back-btn-alt" (click)="goBack()">返回文章列表</button>
+      </div>
+
+      <!-- 文章內容 -->
+      <article class="article-detail" *ngIf="article && !loading">
+        <header class="article-header">
+          <h1 class="article-title">{{ article.title }}</h1>
+
+          <div class="article-meta">
+            <div class="meta-info">
+              <span class="article-date">
+                <i class="fas fa-calendar"></i>
+                {{ formatDate(article.createdAt) }}
+              </span>
+              <span class="article-status">
+                <i class="fas fa-eye"></i>
+                已發布
+              </span>
+            </div>
+
+            <div
+              class="article-tags"
+              *ngIf="article.tags && article.tags.length > 0"
+            >
+              <span class="tag" *ngFor="let tag of article.tags">
+                #{{ tag }}
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <div class="article-content">
+          <div
+            class="content-text"
+            [innerHTML]="formatContent(article.content)"
+          ></div>
+        </div>
+
+        <footer class="article-footer">
+          <div class="footer-actions">
+            <button class="back-btn-footer" (click)="goBack()">
+              返回文章列表
+            </button>
+          </div>
+        </footer>
+      </article>
+    </div>
+  </main>
+
+  <!-- 頁腳 -->
+  <footer class="blog-footer">
+    <div class="footer-container">
+      <p>&copy; 2025 Yo Blog. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

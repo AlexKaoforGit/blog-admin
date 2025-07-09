@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/auth.service';
@@ -11,7 +16,7 @@ import { SweetAlertService } from '../../core/sweet-alert.service';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -28,7 +33,7 @@ export class LoginComponent {
       // email: ['', [Validators.required, Validators.email]],
       // password: ['', [Validators.required, Validators.minLength(6)]]
       email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
     });
   }
 
@@ -38,7 +43,7 @@ export class LoginComponent {
       this.errorMessage = '';
 
       const { email, password } = this.loginForm.value;
-      
+
       this.authService.login(email, password).subscribe({
         next: (success) => {
           this.loading = false;
@@ -52,7 +57,7 @@ export class LoginComponent {
         error: () => {
           this.loading = false;
           this.sweetAlert.error('登入失敗', '登入時發生錯誤，請稍後再試');
-        }
+        },
       });
     }
   }
@@ -70,4 +75,12 @@ export class LoginComponent {
     }
     return '';
   }
-} 
+
+  goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
+
+  goToHome(): void {
+    this.router.navigate(['/blog']);
+  }
+}

@@ -14,10 +14,11 @@
       <div class="card-content">
         <div class="toolbar">
           <div class="search-field">
-            <input 
-              type="text" 
-              [formControl]="searchControl" 
-              placeholder="搜尋文章標題...">
+            <input
+              type="text"
+              [formControl]="searchControl"
+              placeholder="搜尋文章標題..."
+            />
           </div>
 
           <button class="primary-button" (click)="onNewArticle()">
@@ -53,28 +54,45 @@
                   <div class="article-title">{{ article.title }}</div>
                   <div class="mobile-tags">
                     <div class="tags">
-                      <span *ngFor="let tag of article.tags" class="tag">{{ tag }}</span>
+                      <span *ngFor="let tag of article.tags" class="tag">{{
+                        tag
+                      }}</span>
                     </div>
                   </div>
                 </td>
                 <td class="desktop-only">{{ article.author }}</td>
                 <td class="desktop-only">
                   <div class="tags">
-                    <span *ngFor="let tag of article.tags" class="tag">{{ tag }}</span>
+                    <span *ngFor="let tag of article.tags" class="tag">{{
+                      tag
+                    }}</span>
                   </div>
                 </td>
                 <td>
-                  <span [class]="getStatusClass(article.status)" class="status-badge">
+                  <span
+                    [class]="getStatusClass(article.status)"
+                    class="status-badge"
+                  >
                     {{ getStatusText(article.status) }}
                   </span>
                 </td>
-                <td class="desktop-only">{{ article.createdAt | date:'yyyy/MM/dd HH:mm' }}</td>
+                <td class="desktop-only">
+                  {{ article.createdAt | date : "yyyy/MM/dd HH:mm" }}
+                </td>
                 <td>
                   <div class="actions">
-                    <button class="icon-button edit" (click)="onEdit(article)" title="編輯">
+                    <button
+                      class="icon-button edit"
+                      (click)="onEdit(article)"
+                      title="編輯"
+                    >
                       編輯
                     </button>
-                    <button class="icon-button delete" (click)="onDelete(article)" title="刪除">
+                    <button
+                      class="icon-button delete"
+                      (click)="onDelete(article)"
+                      title="刪除"
+                    >
                       刪除
                     </button>
                   </div>
@@ -85,31 +103,38 @@
 
           <div class="pagination">
             <div class="pagination-info">
-              顯示 {{ currentPage * pageSize + 1 }} - {{ Math.min((currentPage + 1) * pageSize, totalItems) }} 筆，共 {{ totalItems }} 筆
+              顯示 {{ currentPage * pageSize + 1 }} -
+              {{ Math.min((currentPage + 1) * pageSize, totalItems) }} 筆，共
+              {{ totalItems }} 筆
             </div>
-            
+
             <div class="pagination-controls">
               <select (change)="onPageSizeChange($event)">
-                <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }} 筆/頁</option>
+                <option *ngFor="let size of pageSizeOptions" [value]="size">
+                  {{ size }} 筆/頁
+                </option>
               </select>
-              
+
               <div class="page-buttons">
-                <button 
+                <button
                   [disabled]="currentPage === 0"
-                  (click)="onPageChange(currentPage - 1)">
+                  (click)="onPageChange(currentPage - 1)"
+                >
                   上一頁
                 </button>
-                
-                <button 
+
+                <button
                   *ngFor="let page of pageNumbers"
                   [class.active]="page === currentPage"
-                  (click)="onPageChange(page)">
+                  (click)="onPageChange(page)"
+                >
                   {{ page + 1 }}
                 </button>
-                
-                <button 
+
+                <button
                   [disabled]="currentPage === totalPages - 1"
-                  (click)="onPageChange(currentPage + 1)">
+                  (click)="onPageChange(currentPage + 1)"
+                >
                   下一頁
                 </button>
               </div>
@@ -119,4 +144,11 @@
       </div>
     </div>
   </div>
-</div> 
+
+  <!-- 頁腳 -->
+  <footer class="admin-footer">
+    <div class="footer-container">
+      <p>&copy; 2025 Yo Blog. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,141 @@
+<!-- 頂部導航 -->
+<header class="blog-header">
+  <div class="container">
+    <h1 class="blog-title" (click)="goToHome()">Yo Blog</h1>
+    <nav class="blog-nav">
+      <button class="home-btn" (click)="goToHome()">
+        <i class="fas fa-home"></i>
+        <span>回到首頁</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="register-container">
+  <!-- 主要內容 -->
+  <main class="main-content">
+    <div class="register-card">
+      <h2>註冊帳號</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">姓名</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-control"
+            [class.error]="
+              registerForm.get('name')?.invalid &&
+              registerForm.get('name')?.touched
+            "
+            placeholder="請輸入您的姓名"
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              registerForm.get('name')?.invalid &&
+              registerForm.get('name')?.touched
+            "
+          >
+            {{ getErrorMessage("name") }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control"
+            [class.error]="
+              registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched
+            "
+            placeholder="請輸入您的 Email"
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched
+            "
+          >
+            {{ getErrorMessage("email") }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">密碼</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="form-control"
+            [class.error]="
+              registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched
+            "
+            placeholder="請輸入密碼（至少6個字元）"
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched
+            "
+          >
+            {{ getErrorMessage("password") }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">確認密碼</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            class="form-control"
+            [class.error]="
+              registerForm.get('confirmPassword')?.invalid &&
+              registerForm.get('confirmPassword')?.touched
+            "
+            placeholder="請再次輸入密碼"
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              registerForm.get('confirmPassword')?.invalid &&
+              registerForm.get('confirmPassword')?.touched
+            "
+          >
+            {{ getErrorMessage("confirmPassword") }}
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="registerForm.invalid || loading"
+        >
+          <span *ngIf="loading" class="spinner"></span>
+          {{ loading ? "註冊中..." : "註冊" }}
+        </button>
+
+        <div class="login-link">
+          <span>已有帳號？</span>
+          <button type="button" class="link-btn" (click)="goToLogin()">
+            立即登入
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+
+<!-- 頁腳 -->
+<footer class="admin-footer">
+  <div class="footer-container">
+    <p>&copy; 2025 Yo Blog. All rights reserved.</p>
+  </div>
+</footer>

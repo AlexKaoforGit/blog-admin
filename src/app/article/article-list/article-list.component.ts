@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -13,23 +19,23 @@ import { SweetAlertService } from '../../core/sweet-alert.service';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleListComponent implements OnInit, OnDestroy {
   articles: Article[] = [];
   allArticles: Article[] = [];
   loading = false;
   searchControl = new FormControl('');
-  
+
   // 分頁設定
   pageSize = 10;
   pageSizeOptions = [5, 10, 25, 50];
   currentPage = 0;
   totalItems = 0;
-  
+
   // 為了在模板中使用 Math
   Math = Math;
-  
+
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -53,8 +59,9 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   private loadArticles(): void {
     this.loading = true;
     this.cdr.detectChanges();
-    
-    this.articleService.getArticles()
+
+    this.articleService
+      .getArticles()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (articles) => {
@@ -68,17 +75,13 @@ export class ArticleListComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.cdr.detectChanges();
           this.sweetAlert.error('載入失敗', '載入文章時發生錯誤');
-        }
+        },
       });
   }
 
   private setupSearch(): void {
     this.searchControl.valueChanges
-      .pipe(
-        takeUntil(this.destroy$),
-        debounceTime(300),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$), debounceTime(300), distinctUntilChanged())
       .subscribe(() => {
         this.currentPage = 0;
         this.applySearch();
@@ -88,7 +91,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   private applySearch(): void {
     const searchTerm = this.searchControl.value?.toLowerCase() || '';
     const currentArticles = this.articleService.getCurrentArticles();
-    
+
     if (!searchTerm) {
       this.allArticles = currentArticles;
     } else {
@@ -96,7 +99,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
         article.title.toLowerCase().includes(searchTerm)
       );
     }
-    
+
     this.totalItems = this.allArticles.length;
     this.updatePagedArticles();
     this.cdr.detectChanges();
@@ -127,16 +130,17 @@ export class ArticleListComponent implements OnInit, OnDestroy {
 
   async onDelete(article: Article): Promise<void> {
     const result = await this.sweetAlert.deleteConfirm(article.title);
-    if (result.isConfirmed) {
+    if (result.isConfirmed && article.id) {
       this.deleteArticle(article.id, article.title);
     }
   }
 
-  private deleteArticle(id: number, title: string): void {
+  private deleteArticle(id: string, title: string): void {
     this.loading = true;
     this.cdr.detectChanges();
-    
-    this.articleService.deleteArticle(id)
+
+    this.articleService
+      .deleteArticle(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (success) => {
@@ -149,11 +153,14 @@ export class ArticleListComponent implements OnInit, OnDestroy {
             this.sweetAlert.error('刪除失敗', '無法刪除指定的文章');
           }
         },
-        error: () => {
+        error: (error: any) => {
           this.loading = false;
           this.cdr.detectChanges();
-          this.sweetAlert.error('刪除失敗', '刪除文章時發生錯誤');
-        }
+          this.sweetAlert.error(
+            '刪除失敗',
+            error.message || '刪除文章時發生錯誤'
+          );
+        },
       });
   }
 
@@ -162,8 +169,14 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   }
 
   onLogout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.sweetAlert
+      .confirm('確認登出', '您確定要登出嗎？', '登出', '取消')
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
+      });
   }
 
   getStatusText(status: string): string {
@@ -185,4 +198,4 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     }
     return pages;
   }
-} 
+}

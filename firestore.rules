@@ -1,0 +1,44 @@
+// Firestore 安全規則
+// 請在 Firebase Console > Firestore Database > Rules 中設定以下規則
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 文章集合的規則
+    match /articles/{articleId} {
+      // 所有人都可以讀取已發布的文章（前台部落格需要）
+      allow read: if true;
+      
+      // 只有已登入的用戶可以寫入/修改文章（管理後台需要）
+      allow write: if request.auth != null;
+      
+      // 更嚴格的規則：用戶只能修改自己的文章
+      // allow write: if request.auth != null && 
+      //   request.auth.token.email == resource.data.authorId;
+      
+      // 創建新文章時的規則
+      // allow create: if request.auth != null && 
+      //   request.auth.token.email == request.resource.data.authorId;
+    }
+    
+    // 其他集合的預設規則（拒絕所有存取）
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+/*
+說明：
+1. 基本規則：只允許已登入的用戶讀寫文章
+2. 如果要更嚴格的權限控制，可以取消註解第二組規則
+3. authorId 欄位必須與用戶的 email 相匹配
+4. 這確保了每個用戶只能存取自己的文章
+
+設定步驟：
+1. 前往 Firebase Console
+2. 選擇您的專案
+3. 進入 Firestore Database
+4. 點擊 "Rules" 標籤
+5. 將上述規則貼上並發布
+*/
