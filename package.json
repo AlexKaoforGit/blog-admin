@@ -10,6 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "test:ci-only": "ng test --watch=false --browsers=ChromeHeadless",
     "deploy": "ng build --configuration production --base-href=/blog-admin/ && npx angular-cli-ghpages --dir=dist/blog-admin/browser",
     "install:ci": "npm ci --legacy-peer-deps",
     "install:dev": "npm install --legacy-peer-deps",
