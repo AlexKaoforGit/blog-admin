@@ -1,7 +1,10 @@
 <div class="article-list-container">
   <header class="toolbar">
     <h1>文章管理系統</h1>
-    <button class="logout-button" (click)="onLogout()">登出</button>
+    <button class="logout-button" (click)="onLogout()">
+      <i class="fas fa-sign-out-alt"></i>
+      登出
+    </button>
   </header>
 
   <div class="content">
@@ -22,6 +25,7 @@
           </div>
 
           <button class="primary-button" (click)="onNewArticle()">
+            <i class="fas fa-plus"></i>
             新增文章
           </button>
         </div>
@@ -86,14 +90,14 @@
                       (click)="onEdit(article)"
                       title="編輯"
                     >
-                      編輯
+                      <i class="fas fa-edit"></i>
                     </button>
                     <button
                       class="icon-button delete"
                       (click)="onDelete(article)"
                       title="刪除"
                     >
-                      刪除
+                      <i class="fas fa-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -109,13 +113,13 @@
             </div>
 
             <div class="pagination-controls">
-              <select (change)="onPageSizeChange($event)">
+              <select [value]="pageSize" (change)="onPageSizeChange($event)">
                 <option *ngFor="let size of pageSizeOptions" [value]="size">
                   {{ size }} 筆/頁
                 </option>
               </select>
 
-              <div class="page-buttons">
+              <div class="page-buttons" *ngIf="totalPages > 1">
                 <button
                   [disabled]="currentPage === 0"
                   (click)="onPageChange(currentPage - 1)"

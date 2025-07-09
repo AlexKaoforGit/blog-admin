@@ -28,7 +28,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   searchControl = new FormControl('');
 
   // 分頁設定
-  pageSize = 10;
+  pageSize = 5;
   pageSizeOptions = [5, 10, 25, 50];
   currentPage = 0;
   totalItems = 0;
@@ -67,6 +67,14 @@ export class ArticleListComponent implements OnInit, OnDestroy {
         next: (articles) => {
           this.allArticles = articles;
           this.totalItems = articles.length;
+          // 確保重置到第一頁並應用分頁
+          this.currentPage = 0;
+          console.log(
+            'LoadArticles - total articles:',
+            this.totalItems,
+            'pageSize:',
+            this.pageSize
+          );
           this.updatePagedArticles();
           this.loading = false;
           this.cdr.detectChanges();
@@ -109,6 +117,20 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     const startIndex = this.currentPage * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.articles = this.allArticles.slice(startIndex, endIndex);
+    console.log(
+      'UpdatePagedArticles - currentPage:',
+      this.currentPage,
+      'pageSize:',
+      this.pageSize,
+      'startIndex:',
+      startIndex,
+      'endIndex:',
+      endIndex,
+      'showing:',
+      this.articles.length,
+      'total:',
+      this.allArticles.length
+    );
   }
 
   onPageChange(pageIndex: number): void {
@@ -118,10 +140,18 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   }
 
   onPageSizeChange(event: any): void {
-    this.pageSize = parseInt(event.target.value);
-    this.currentPage = 0;
+    const newPageSize = parseInt(event.target.value);
+    console.log('Page size changed to:', newPageSize);
+    this.pageSize = newPageSize;
+    this.currentPage = 0; // 重置到第一頁
     this.updatePagedArticles();
     this.cdr.detectChanges();
+    console.log(
+      'After page size change - currentPage:',
+      this.currentPage,
+      'articles length:',
+      this.articles.length
+    );
   }
 
   onEdit(article: Article): void {

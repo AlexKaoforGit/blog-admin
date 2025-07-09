@@ -14,16 +14,4 @@ export const environment = {
     appId: 'your-dev-app-id',
     measurementId: 'your-dev-measurement-id', // Google Analytics (可選)
   },
-
-  // API 端點
-  apiUrl: 'http://localhost:3000/api',
-
-  // 其他設定
-  enableAnalytics: true,
-  logLevel: 'debug',
-
-  // 開發環境標識
-  isCI: false,
-  appName: 'Yo Blog - Development',
-  version: '1.0.0-dev',
 };
