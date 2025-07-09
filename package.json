@@ -5,9 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build --configuration production --base-href=/blog-admin/ && npx angular-cli-ghpages --dir=dist/blog-admin/browser"
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "deploy": "ng build --configuration production --base-href=/blog-admin/ && npx angular-cli-ghpages --dir=dist/blog-admin/browser",
+    "install:ci": "npm ci --legacy-peer-deps",
+    "install:dev": "npm install --legacy-peer-deps"
   },
   "prettier": {
     "overrides": [
@@ -22,13 +26,14 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^20.0.5",
-    "@angular/common": "^20.0.0",
-    "@angular/compiler": "^20.0.0",
-    "@angular/core": "^20.0.0",
+    "@angular/common": "^20.0.5",
+    "@angular/compiler": "^20.0.5",
+    "@angular/core": "^20.0.5",
     "@angular/fire": "^20.0.1",
-    "@angular/forms": "^20.0.0",
-    "@angular/platform-browser": "^20.0.0",
-    "@angular/router": "^20.0.0",
+    "@angular/forms": "^20.0.5",
+    "@angular/platform-browser": "^20.0.5",
+    "@angular/platform-browser-dynamic": "^20.0.5",
+    "@angular/router": "^20.0.5",
     "firebase": "^11.10.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.22.1",
@@ -36,9 +41,9 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.0.4",
-    "@angular/cli": "^20.0.4",
-    "@angular/compiler-cli": "^20.0.0",
+    "@angular/build": "^20.0.5",
+    "@angular/cli": "^20.0.5",
+    "@angular/compiler-cli": "^20.0.5",
     "@types/jasmine": "~5.1.0",
     "angular-cli-ghpages": "^2.0.3",
     "jasmine-core": "~5.7.0",

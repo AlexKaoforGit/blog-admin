@@ -30,10 +30,13 @@ jobs:
         cache: 'npm'
         
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --legacy-peer-deps
+      
+    - name: Run tests
+      run: npm run test:ci
       
     - name: Build
-      run: npm run build
+      run: npm run build:prod
       
     - name: Setup Pages
       uses: actions/configure-pages@v4
