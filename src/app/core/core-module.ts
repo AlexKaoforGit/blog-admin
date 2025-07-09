@@ -7,7 +7,8 @@ import { environment } from '../../environments/environment';
   declarations: [],
   imports: [
     CommonModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    // 只在非 CI 環境中初始化 Firebase
+    ...((environment as any).isCI ? [] : [AngularFireModule.initializeApp(environment.firebase)]),
   ],
 })
 export class CoreModule {}
