@@ -1,17 +1,29 @@
-// 環境變數範本檔案
-// 複製此檔案為 environment.ts 和 environment.prod.ts 並填入實際值
+// 開發環境變數範本檔案
+// 複製此檔案為 environment.ts 並填入實際的 Firebase 配置
 
 export const environment = {
   production: false,
 
-  // Firebase 配置 - 請從 Firebase Console 獲取
+  // Firebase 配置 - 請從 Firebase Console 獲取您的開發專案配置
   firebase: {
-    apiKey: 'your-api-key-here',
-    authDomain: 'your-project.firebaseapp.com',
-    projectId: 'your-project-id',
-    storageBucket: 'your-project.appspot.com',
-    messagingSenderId: 'your-sender-id',
-    appId: 'your-app-id',
-    measurementId: 'your-measurement-id', // 可選
+    apiKey: 'your-dev-api-key-here',
+    authDomain: 'your-dev-project.firebaseapp.com',
+    projectId: 'your-dev-project-id',
+    storageBucket: 'your-dev-project.appspot.com',
+    messagingSenderId: 'your-dev-sender-id',
+    appId: 'your-dev-app-id',
+    measurementId: 'your-dev-measurement-id', // Google Analytics (可選)
   },
+
+  // API 端點
+  apiUrl: 'http://localhost:3000/api',
+
+  // 其他設定
+  enableAnalytics: true,
+  logLevel: 'debug',
+
+  // 開發環境標識
+  isCI: false,
+  appName: 'Yo Blog - Development',
+  version: '1.0.0-dev',
 };

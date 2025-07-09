@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --configuration production",
+    "build:github-pages": "npm run setup:ci-env && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
@@ -13,8 +14,7 @@
     "install:ci": "npm ci --legacy-peer-deps",
     "install:dev": "npm install --legacy-peer-deps",
     "setup:ci-env": "cp src/environments/environment.ci.ts src/environments/environment.ts && cp src/environments/environment.ci.ts src/environments/environment.prod.ts",
-    "pretest:ci": "npm run setup:ci-env",
-    "prebuild:prod": "npm run setup:ci-env"
+    "pretest:ci": "npm run setup:ci-env"
   },
   "prettier": {
     "overrides": [
